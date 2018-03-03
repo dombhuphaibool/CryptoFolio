@@ -1,72 +1,63 @@
 package com.bandonleon.cryptofolio.feature.porfolio.view
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
+import com.bandonleon.cryptofolio.framework.utils.NumberUtils
 
 class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>() {
 
     companion object {
-        const val PORFOLIO_HEADER = 0
+        const val PORFOLIO_SUMMARY = 0
         const val PORFOLIO_ASSET = 1
     }
 
-    sealed class PorfolioViewHolder(open protected val porfolioItemView: PorfolioItemView) : RecyclerView.ViewHolder(porfolioItemView) {
-        class PorfolioHeaderViewHolder(override val porfolioItemView: PorfolioItemView) : PorfolioViewHolder(porfolioItemView) {
-            fun setCoinName(label: String) {
-                porfolioItemView.coinName.text = label
-            }
-
-            fun setPrice(label: String) {
-                porfolioItemView.priceUsd.text = label
-            }
-
-            fun setAmount(label: String) {
-                porfolioItemView.amount.text = label
+    sealed class PorfolioViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        class PorfolioSummaryViewHolder(private val portfolioSummaryView: PortfolioSummaryView) : PorfolioViewHolder(portfolioSummaryView) {
+            fun setPortfolioSummary(totalValue: Float, initialValue: Float) {
+                portfolioSummaryView.setPortfolioSummary(totalValue, initialValue)
             }
         }
 
-        class PorfolioAssetViewHolder(override val porfolioItemView: PorfolioItemView) : PorfolioViewHolder(porfolioItemView) {
+        class PorfolioAssetViewHolder(private val portfolioItemView: PorfolioItemView) : PorfolioViewHolder(portfolioItemView) {
 
             fun setCoinName(coinName: String) {
-                porfolioItemView.coinName.text = coinName
+                portfolioItemView.coinName.text = coinName
             }
 
             fun setPrice(price: Float) {
-                porfolioItemView.priceUsd.text = "$%.2f".format(price)
+                portfolioItemView.priceUsd.text = NumberUtils.formatAsCurrency(price)
             }
 
             fun setAmount(amount: Float) {
-                porfolioItemView.amount.text = "%.5f".format(amount)
+                portfolioItemView.amount.text = NumberUtils.formatAsAssetQuantity(amount)
             }
         }
     }
 
-    private var coinAssets: MutableList<CoinAsset> = ArrayList<CoinAsset>()
+    private var coinAssets: MutableList<CoinAsset> = ArrayList()
 
     override fun getItemCount(): Int {
         return coinAssets.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) PORFOLIO_HEADER else PORFOLIO_ASSET
+        return if (position == 0) PORFOLIO_SUMMARY else PORFOLIO_ASSET
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PorfolioViewHolder {
-        val porfolioItemView = PorfolioItemView(parent.context)
         return when (viewType) {
-            PORFOLIO_HEADER -> PorfolioViewHolder.PorfolioHeaderViewHolder(porfolioItemView)
-            PORFOLIO_ASSET -> PorfolioViewHolder.PorfolioAssetViewHolder(porfolioItemView)
-            else -> PorfolioViewHolder.PorfolioAssetViewHolder(porfolioItemView)
+            PORFOLIO_SUMMARY -> PorfolioViewHolder.PorfolioSummaryViewHolder(PortfolioSummaryView(parent.context))
+            PORFOLIO_ASSET -> PorfolioViewHolder.PorfolioAssetViewHolder(PorfolioItemView(parent.context))
+            else -> PorfolioViewHolder.PorfolioAssetViewHolder(PorfolioItemView(parent.context))
         }
     }
 
     override fun onBindViewHolder(holder: PorfolioViewHolder, position: Int) {
         when (holder.itemViewType) {
-            PORFOLIO_HEADER -> {
-                val headerHolder = holder as PorfolioViewHolder.PorfolioHeaderViewHolder
-                headerHolder.setCoinName("COIN")
-                headerHolder.setPrice("PRICE")
-                headerHolder.setAmount("AMOUNT")
+            PORFOLIO_SUMMARY -> {
+                val summaryHolder = holder as PorfolioViewHolder.PorfolioSummaryViewHolder
+                summaryHolder.setPortfolioSummary((coinAssets.sumByDouble { it.amount * it.price.toDouble() }).toFloat(), 1f)
             }
 
             PORFOLIO_ASSET -> {
