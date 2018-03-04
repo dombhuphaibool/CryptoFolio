@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bandonleon.cryptofolio.R
 import com.bandonleon.cryptofolio.framework.utils.NumberUtils
+import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.padding
@@ -32,6 +33,7 @@ class PortfolioSummaryView(context: Context) : LinearLayout(context) {
 
         portfolioValue = textView {
             layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            bottomPadding = 22
             gravity = Gravity.CENTER
             textSize = 36f
             typeface = Typeface.DEFAULT_BOLD
@@ -45,10 +47,10 @@ class PortfolioSummaryView(context: Context) : LinearLayout(context) {
                     width = WRAP_CONTENT
                     height = WRAP_CONTENT
                     weight = 2f
-                    gravity = Gravity.END
+                    gravity = Gravity.CENTER_HORIZONTAL
                 }
                 textSize = 20f
-                textAlignment = View.TEXT_ALIGNMENT_TEXT_END
+                textAlignment = View.TEXT_ALIGNMENT_CENTER
             }
 
             initialInvestment = textView().apply {
