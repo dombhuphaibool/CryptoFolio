@@ -16,7 +16,7 @@ interface AssetDao {
 
     // Once this issue is fixed: https://youtrack.jetbrains.com/issue/KT-17959
     // change :arg0 to :coinName
-    @Query("SELECT * FROM Asset WHERE id = :arg0")
+    @Query("SELECT * FROM Asset WHERE id = :coinName")
     fun getAsset(coinName: String): Asset?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -73,6 +73,7 @@ class PorfolioPresenter(private val coinStatRepository: CoinStatRepository,
             coin -> CoinAsset(
                 coin.name,
                 getAssetAmount(coin.id),
+                coin.symbol,
                 coin.price_usd,
                 coin.percent_change_1h,
                 coin.percent_change_24h,

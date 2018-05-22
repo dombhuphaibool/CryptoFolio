@@ -21,7 +21,9 @@ class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>
 
         class PorfolioAssetViewHolder(private val portfolioItemView: PorfolioItemView) : PorfolioViewHolder(portfolioItemView) {
 
-            fun setCoinName(coinName: String) {
+            fun setCoinName(coinName: String, symbol: String) {
+                val resId = portfolioItemView.resources.getIdentifier(symbol, "drawable", "com.bandonleon.cryptofolio")
+                // portfolioItemView.coinIcon.setImageResource(resId)
                 portfolioItemView.coinName.text = coinName
             }
 
@@ -29,8 +31,8 @@ class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>
                 portfolioItemView.priceUsd.text = NumberUtils.formatAsCurrency(price)
             }
 
-            fun setAmount(amount: Float) {
-                portfolioItemView.amount.text = NumberUtils.formatAsAssetQuantity(amount)
+            fun setAmount(amount: Float, unit: String) {
+                portfolioItemView.amount.text = "${NumberUtils.formatAsAssetQuantity(amount)} $unit"
             }
         }
     }
@@ -63,9 +65,9 @@ class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>
             PORFOLIO_ASSET -> {
                 val assetHolder = holder as PorfolioViewHolder.PorfolioAssetViewHolder
                 with(coinAssets.get(position - 1)) {
-                    assetHolder.setCoinName(coinName)
+                    assetHolder.setCoinName(coinName, unit.toLowerCase())
                     assetHolder.setPrice(price)
-                    assetHolder.setAmount(amount)
+                    assetHolder.setAmount(amount, unit)
                 }
             }
         }

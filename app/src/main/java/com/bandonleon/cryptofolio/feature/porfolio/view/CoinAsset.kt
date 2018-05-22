@@ -6,6 +6,7 @@ package com.bandonleon.cryptofolio.feature.porfolio.view
 data class CoinAsset(
         val coinName: String,
         val amount: Float,
+        val unit: String,
         val price: Float,
         val percentChanged1h: Float,
         val percentChanged24h: Float,
