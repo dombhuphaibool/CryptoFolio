@@ -1,19 +1,18 @@
-package com.bandonleon.cryptofolio.feature.porfolio.view
+package com.bandonleon.cryptofolio.feature.portfolio.view
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bandonleon.cryptofolio.R
-import com.bandonleon.cryptofolio.feature.porfolio.PorfolioContract
-import com.bandonleon.cryptofolio.feature.porfolio.PorfolioContract.PorfolioView.LoadListener
-import com.bandonleon.cryptofolio.feature.porfolio.model.AssetRepository
-import com.bandonleon.cryptofolio.feature.porfolio.model.CoinStatRepository
-import com.bandonleon.cryptofolio.feature.porfolio.presenter.PorfolioPresenter
+import com.bandonleon.cryptofolio.feature.portfolio.PortfolioContract
+import com.bandonleon.cryptofolio.feature.portfolio.PortfolioContract.PorfolioView.LoadListener
+import com.bandonleon.cryptofolio.feature.portfolio.model.AssetRepository
+import com.bandonleon.cryptofolio.feature.portfolio.model.CoinStatRepository
+import com.bandonleon.cryptofolio.feature.portfolio.presenter.PortfolioPresenter
 import com.bandonleon.cryptofolio.framework.mvp.MvpFragment
 import com.bandonleon.mvp.LoadState
 import com.bandonleon.mvp.Presenter
@@ -21,11 +20,11 @@ import com.bandonleon.mvp.Presenter
 /**
  * Created by dombhuphaibool on 2/27/18.
  */
-class PorfolioFragment : MvpFragment(), PorfolioContract.PorfolioView {
+class PortfolioFragment : MvpFragment(), PortfolioContract.PorfolioView {
 
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
     private var recyclerView: RecyclerView? = null
-    private var adapter: PorfolioAdapter? = null
+    private var adapter: PortfolioAdapter? = null
 
     private var _loadState: LoadState = LoadState.LOADED
     override var loadState: LoadState
@@ -40,7 +39,7 @@ class PorfolioFragment : MvpFragment(), PorfolioContract.PorfolioView {
     override fun createPresenter(): Presenter {
         val coinStatRepository = CoinStatRepository(context!!)
         val assetRepository = AssetRepository(context!!)
-        return PorfolioPresenter(coinStatRepository, assetRepository)
+        return PortfolioPresenter(coinStatRepository, assetRepository)
     }
 
     override fun setLoadListener(listener: LoadListener) {
@@ -55,7 +54,7 @@ class PorfolioFragment : MvpFragment(), PorfolioContract.PorfolioView {
         }
         recyclerView = rootView.findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(context!!)
-        adapter = PorfolioAdapter()
+        adapter = PortfolioAdapter()
         recyclerView?.adapter = adapter
         return rootView
     }
@@ -72,5 +71,9 @@ class PorfolioFragment : MvpFragment(), PorfolioContract.PorfolioView {
             Log.e("COIN_STATS", "${coinAsset.coinName} is priced at ${coinAsset.price}")
         }
         */
+    }
+
+    companion object {
+        fun newInstance(): PortfolioFragment = PortfolioFragment()
     }
 }

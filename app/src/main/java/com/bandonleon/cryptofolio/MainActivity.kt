@@ -2,34 +2,39 @@ package com.bandonleon.cryptofolio
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug.waitForDebugger
-import android.support.design.widget.BottomNavigationView
-import com.bandonleon.cryptofolio.feature.porfolio.model.Asset
+import android.support.v4.app.Fragment
+import com.bandonleon.cryptofolio.feature.portfolio.model.Asset
+import com.bandonleon.cryptofolio.feature.portfolio.view.PortfolioFragment
 import com.bandonleon.cryptofolio.persistence.CoinDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_dashboard -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        bottomNavigation.setOnNavigationItemSelectedListener listener@ { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    displayFragment(PortfolioFragment.newInstance())
+                    return@listener true
+                }
+
+                R.id.navigation_dashboard -> {
+                    displayFragment(PortfolioFragment.newInstance())
+                    return@listener true
+                }
+
+                R.id.navigation_notifications -> {
+                    displayFragment(PortfolioFragment.newInstance())
+                    return@listener true
+                }
+
+                else -> return@listener false
+            }
+        }
 
         // waitForDebugger()
 
@@ -42,5 +47,9 @@ class MainActivity : AppCompatActivity() {
                 assetDao.insert(Asset("ethereum", 22.5f))
             }
         }
+    }
+
+    private fun displayFragment(fragment: Fragment) {
+
     }
 }

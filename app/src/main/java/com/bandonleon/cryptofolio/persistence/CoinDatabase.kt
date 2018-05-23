@@ -4,7 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.bandonleon.cryptofolio.feature.porfolio.model.*
+import com.bandonleon.cryptofolio.feature.portfolio.model.*
 
 /**
  * Created by dombhuphaibool on 2/25/18.

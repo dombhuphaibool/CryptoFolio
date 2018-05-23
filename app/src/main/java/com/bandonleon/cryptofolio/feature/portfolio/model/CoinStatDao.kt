@@ -1,4 +1,4 @@
-package com.bandonleon.cryptofolio.feature.porfolio.model
+package com.bandonleon.cryptofolio.feature.portfolio.model
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert

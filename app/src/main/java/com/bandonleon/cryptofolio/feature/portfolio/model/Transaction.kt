@@ -1,9 +1,8 @@
-package com.bandonleon.cryptofolio.feature.porfolio.model
+package com.bandonleon.cryptofolio.feature.portfolio.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import java.util.*
 
 /**
  * Created by dombhuphaibool on 3/1/18.

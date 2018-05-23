@@ -1,4 +1,4 @@
-package com.bandonleon.cryptofolio.feature.porfolio.view
+package com.bandonleon.cryptofolio.feature.portfolio.view
 
 import android.content.Context
 import android.graphics.Color
@@ -14,7 +14,6 @@ import com.bandonleon.cryptofolio.framework.utils.NumberUtils
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.linearLayout
-import org.jetbrains.anko.padding
 import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textView
 

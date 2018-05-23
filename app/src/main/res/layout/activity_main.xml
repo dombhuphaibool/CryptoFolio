@@ -11,17 +11,15 @@
     android:layout_marginTop="@dimen/activity_vertical_margin"
     tools:context="com.bandonleon.cryptofolio.MainActivity">
 
-    <fragment
-        android:id="@+id/screen"
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.bandonleon.cryptofolio.feature.porfolio.view.PorfolioFragment"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.bandonleon.cryptofolio.feature.porfolio.view.PorfolioFragment"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"

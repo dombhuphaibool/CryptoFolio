@@ -1,6 +1,6 @@
 package com.bandonleon.cryptofolio.api
 
-import com.bandonleon.cryptofolio.feature.porfolio.model.CoinStat
+import com.bandonleon.cryptofolio.feature.portfolio.model.CoinStat
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

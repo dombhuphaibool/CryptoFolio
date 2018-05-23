@@ -1,10 +1,6 @@
-package com.bandonleon.cryptofolio.feature.porfolio.model
+package com.bandonleon.cryptofolio.feature.portfolio.model
 
 import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
-import java.util.*
 
 /**
  * Created by dombhuphaibool on 3/1/18.

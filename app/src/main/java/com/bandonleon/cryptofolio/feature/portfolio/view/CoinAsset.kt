@@ -1,4 +1,4 @@
-package com.bandonleon.cryptofolio.feature.porfolio.view
+package com.bandonleon.cryptofolio.feature.portfolio.view
 
 /**
  * ViewModel used to display coin info along with assets info

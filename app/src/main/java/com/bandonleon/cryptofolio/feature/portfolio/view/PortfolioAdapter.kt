@@ -1,11 +1,11 @@
-package com.bandonleon.cryptofolio.feature.porfolio.view
+package com.bandonleon.cryptofolio.feature.portfolio.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.bandonleon.cryptofolio.framework.utils.NumberUtils
 
-class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>() {
+class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.PorfolioViewHolder>() {
 
     companion object {
         const val PORFOLIO_SUMMARY = 0
@@ -19,7 +19,7 @@ class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>
             }
         }
 
-        class PorfolioAssetViewHolder(private val portfolioItemView: PorfolioItemView) : PorfolioViewHolder(portfolioItemView) {
+        class PorfolioAssetViewHolder(private val portfolioItemView: PortfolioItemView) : PorfolioViewHolder(portfolioItemView) {
 
             fun setCoinName(coinName: String, symbol: String) {
                 val resId = portfolioItemView.resources.getIdentifier(symbol, "drawable", "com.bandonleon.cryptofolio")
@@ -50,8 +50,8 @@ class PorfolioAdapter : RecyclerView.Adapter<PorfolioAdapter.PorfolioViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PorfolioViewHolder {
         return when (viewType) {
             PORFOLIO_SUMMARY -> PorfolioViewHolder.PorfolioSummaryViewHolder(PortfolioSummaryView(parent.context))
-            PORFOLIO_ASSET -> PorfolioViewHolder.PorfolioAssetViewHolder(PorfolioItemView(parent.context))
-            else -> PorfolioViewHolder.PorfolioAssetViewHolder(PorfolioItemView(parent.context))
+            PORFOLIO_ASSET -> PorfolioViewHolder.PorfolioAssetViewHolder(PortfolioItemView(parent.context))
+            else -> PorfolioViewHolder.PorfolioAssetViewHolder(PortfolioItemView(parent.context))
         }
     }
 

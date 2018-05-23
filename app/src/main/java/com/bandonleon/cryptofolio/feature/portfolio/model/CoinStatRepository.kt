@@ -1,11 +1,10 @@
-package com.bandonleon.cryptofolio.feature.porfolio.model
+package com.bandonleon.cryptofolio.feature.portfolio.model
 
 import android.content.Context
 import android.net.ConnectivityManager
 import com.bandonleon.cryptofolio.api.CoinMarketCapService
 import com.bandonleon.cryptofolio.persistence.CoinDatabase
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /**

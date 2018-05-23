@@ -1,13 +1,13 @@
-package com.bandonleon.cryptofolio.feature.porfolio.presenter
+package com.bandonleon.cryptofolio.feature.portfolio.presenter
 
 import android.util.Log
-import com.bandonleon.cryptofolio.feature.porfolio.PorfolioContract.PorfolioView
-import com.bandonleon.cryptofolio.feature.porfolio.PorfolioContract.PorfolioView.LoadListener
-import com.bandonleon.cryptofolio.feature.porfolio.model.Asset
-import com.bandonleon.cryptofolio.feature.porfolio.model.AssetRepository
-import com.bandonleon.cryptofolio.feature.porfolio.model.CoinStat
-import com.bandonleon.cryptofolio.feature.porfolio.model.CoinStatRepository
-import com.bandonleon.cryptofolio.feature.porfolio.view.CoinAsset
+import com.bandonleon.cryptofolio.feature.portfolio.PortfolioContract.PorfolioView
+import com.bandonleon.cryptofolio.feature.portfolio.PortfolioContract.PorfolioView.LoadListener
+import com.bandonleon.cryptofolio.feature.portfolio.model.Asset
+import com.bandonleon.cryptofolio.feature.portfolio.model.AssetRepository
+import com.bandonleon.cryptofolio.feature.portfolio.model.CoinStat
+import com.bandonleon.cryptofolio.feature.portfolio.model.CoinStatRepository
+import com.bandonleon.cryptofolio.feature.portfolio.view.CoinAsset
 import com.bandonleon.mvp.BasePresenter
 import com.bandonleon.mvp.LoadState
 import io.reactivex.Observable
@@ -16,8 +16,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 /**
  * Created by dombhuphaibool on 2/27/18.
  */
-class PorfolioPresenter(private val coinStatRepository: CoinStatRepository,
-                        private val assetRepository: AssetRepository) : BasePresenter<PorfolioView>(), LoadListener {
+class PortfolioPresenter(private val coinStatRepository: CoinStatRepository,
+                         private val assetRepository: AssetRepository) : BasePresenter<PorfolioView>(), LoadListener {
 
     val assets: MutableMap<String, Asset> = HashMap<String, Asset>()
     lateinit var coins: MutableList<CoinStat>

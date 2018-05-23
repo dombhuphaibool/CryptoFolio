@@ -1,15 +1,13 @@
-package com.bandonleon.cryptofolio.feature.porfolio.view
+package com.bandonleon.cryptofolio.feature.portfolio.view
 
 import android.content.Context
 import android.view.Gravity
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bandonleon.cryptofolio.R
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.imageView
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.verticalPadding
@@ -17,7 +15,7 @@ import org.jetbrains.anko.verticalPadding
 /**
  * Created by dombhuphaibool on 3/1/18.
  */
-class PorfolioItemView(context: Context) : LinearLayout(context) {
+class PortfolioItemView(context: Context) : LinearLayout(context) {
 
     lateinit var coinName: TextView
     // lateinit var coinIcon: ImageView
