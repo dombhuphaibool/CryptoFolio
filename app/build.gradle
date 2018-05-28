@@ -55,6 +55,11 @@ dependencies {
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
 
+    // Navigation library
+    implementation deps.navigation.runtime_ktx
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
     testImplementation deps.junit
     androidTestImplementation deps.support.test_runner
     androidTestImplementation deps.espresso.core

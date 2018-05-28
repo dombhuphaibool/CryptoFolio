@@ -20,7 +20,7 @@ versions.espresso = "3.0.1"
 
 versions.arch_core = "1.1.1-rc1"
 versions.lifecycle = "1.1.0"
-versions.navigation = "1.1.1-rc1"
+versions.navigation = "1.0.0-alpha01"
 versions.paging = "1.1.1-rc1"
 versions.room = "1.1.1-rc1"
 versions.work = "1.1.1-rc1"
@@ -116,6 +116,8 @@ navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navig
 navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"
 navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
 navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.ui = "android.arch.navigation:navigation-ui:$versions.navigation"
+navigation.ui_ktx = "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
 navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
 navigation.testing_ktx = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
 deps.navigation = navigation
