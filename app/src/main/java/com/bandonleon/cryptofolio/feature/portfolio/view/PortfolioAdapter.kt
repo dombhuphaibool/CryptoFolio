@@ -3,7 +3,8 @@ package com.bandonleon.cryptofolio.feature.portfolio.view
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.bandonleon.cryptofolio.framework.utils.NumberUtils
+import com.bandonleon.cryptofolio.framework.extensions.formatAsAssetQuantity
+import com.bandonleon.cryptofolio.framework.extensions.formatAsCurrency
 
 class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.PorfolioViewHolder>() {
 
@@ -19,21 +20,7 @@ class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.PorfolioViewHolde
             }
         }
 
-        class PorfolioAssetViewHolder(private val portfolioItemView: PortfolioItemView) : PorfolioViewHolder(portfolioItemView) {
-
-            fun setCoinName(coinName: String, symbol: String) {
-                val resId = portfolioItemView.resources.getIdentifier(symbol, "drawable", "com.bandonleon.cryptofolio")
-                // portfolioItemView.coinIcon.setImageResource(resId)
-                portfolioItemView.coinName.text = coinName
-            }
-
-            fun setPrice(price: Float) {
-                portfolioItemView.priceUsd.text = NumberUtils.formatAsCurrency(price)
-            }
-
-            fun setAmount(amount: Float, unit: String) {
-                portfolioItemView.amount.text = "${NumberUtils.formatAsAssetQuantity(amount)} $unit"
-            }
+        class PorfolioAssetViewHolder(val portfolioItemView: PortfolioItemView) : PorfolioViewHolder(portfolioItemView) {
         }
     }
 
@@ -59,15 +46,19 @@ class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.PorfolioViewHolde
         when (holder.itemViewType) {
             PORFOLIO_SUMMARY -> {
                 val summaryHolder = holder as PorfolioViewHolder.PorfolioSummaryViewHolder
-                summaryHolder.setPortfolioSummary((coinAssets.sumByDouble { it.amount * it.price.toDouble() }).toFloat(), 1f)
+                summaryHolder.setPortfolioSummary((coinAssets.sumByDouble { it.amount * it.price.toDouble() }).toFloat(), 20000f)
             }
 
             PORFOLIO_ASSET -> {
                 val assetHolder = holder as PorfolioViewHolder.PorfolioAssetViewHolder
-                with(coinAssets.get(position - 1)) {
-                    assetHolder.setCoinName(coinName, unit.toLowerCase())
-                    assetHolder.setPrice(price)
-                    assetHolder.setAmount(amount, unit)
+                val portfolioItemView = assetHolder.portfolioItemView
+                val coinAsset = coinAssets.get(position - 1)
+                with(portfolioItemView) {
+                    setCoinName(coinAsset.coinName, coinAsset.unit.toLowerCase())
+                    setCoinPrice(coinAsset.price)
+                    setCoinChange(coinAsset.percentChanged24h)
+                    setAssetQuantity(coinAsset.amount, coinAsset.unit)
+                    setAssetValue(coinAsset.price * coinAsset.amount)
                 }
             }
         }

@@ -7,4 +7,6 @@
 
     <dimen name="portfolio_item_vpadding">10dp</dimen>
     <dimen name="portfolio_icon_size">18dp</dimen>
+
+    <dimen name="recycler_item_vspacing">4dp</dimen>
 </resources>

@@ -1,66 +1,71 @@
 package com.bandonleon.cryptofolio.feature.portfolio.view
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
+import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bandonleon.cryptofolio.R
-import org.jetbrains.anko.dip
-import org.jetbrains.anko.linearLayout
-import org.jetbrains.anko.textView
-import org.jetbrains.anko.verticalPadding
+import com.bandonleon.cryptofolio.framework.extensions.formatAsAssetQuantity
+import com.bandonleon.cryptofolio.framework.extensions.formatAsCurrency
+import com.bandonleon.cryptofolio.framework.extensions.formatAsPercentageChange
+import org.jetbrains.anko.*
 
 /**
  * Created by dombhuphaibool on 3/1/18.
  */
-class PortfolioItemView(context: Context) : LinearLayout(context) {
+class PortfolioItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    lateinit var coinName: TextView
-    // lateinit var coinIcon: ImageView
-    val priceUsd: TextView
-    val amount: TextView
+    private val coinIcon: ImageView
+    private val coinName: TextView
+    private val coinPrice: TextView
+    private val coinChange: TextView
+    private val assetQuantity: TextView
+    private val assetValue: TextView
 
     init {
+        inflate(context, R.layout.view_portfolio_item, this)
+        coinIcon = findViewById(R.id.iconView)
+        coinName = findViewById(R.id.coinName)
+        coinPrice = findViewById(R.id.coinPrice)
+        coinChange = findViewById(R.id.coinChange)
+        assetQuantity = findViewById(R.id.assetQuantity)
+        assetValue = findViewById(R.id.assetValue)
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        orientation = HORIZONTAL
-        weightSum = 3f
-        verticalPadding = dip(R.dimen.portfolio_item_vpadding)
+    }
 
-        linearLayout {
-            lparams {
-                width = WRAP_CONTENT
-                height = WRAP_CONTENT
-                orientation = HORIZONTAL
-                weight = 1f
-            }
-/*
-            coinIcon = imageView(R.drawable.btc).apply {
-                lparams {
-                    width = WRAP_CONTENT // dip(R.dimen.portfolio_icon_size)
-                    height = WRAP_CONTENT // dip(R.dimen.portfolio_icon_size)
-                    // gravity = Gravity.CENTER
-                }
-            }
-*/
-            coinName = textView("testCoin").apply {
-                lparams {
-                    width = WRAP_CONTENT
-                    height = WRAP_CONTENT
-                    gravity = Gravity.CENTER_HORIZONTAL
-                }
+    fun setCoinName(name: String, symbol: String) {
+        val resId = resources.getIdentifier(symbol, "drawable", "com.bandonleon.cryptofolio")
+        coinIcon.setImageResource(resId)
+        coinName.text = name
+    }
+
+    fun setCoinPrice(price: Float) {
+        coinPrice.text = price.formatAsCurrency()
+    }
+
+    fun setCoinChange(percentChanged: Float) {
+        with (coinChange) {
+            text = percentChanged.formatAsPercentageChange()
+            when {
+                percentChanged < 0f -> textColor = android.graphics.Color.RED
+                percentChanged > 0f -> textColor = android.graphics.Color.GREEN
             }
         }
 
-        priceUsd = textView("$25.45") {
-            layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT, 1f)
-            gravity = Gravity.CENTER_HORIZONTAL
-        }
+    }
 
-        amount = textView("22.382") {
-            layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT, 1f)
-            gravity = Gravity.CENTER_HORIZONTAL
-        }
+    fun setAssetQuantity(amount: Float, unit: String) {
+        assetQuantity.text = "${amount.formatAsAssetQuantity()} $unit"
+    }
+
+    fun setAssetValue(value: Float) {
+        assetValue.text = value.formatAsCurrency()
     }
 }

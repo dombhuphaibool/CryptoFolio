@@ -10,7 +10,8 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bandonleon.cryptofolio.R
-import com.bandonleon.cryptofolio.framework.utils.NumberUtils
+import com.bandonleon.cryptofolio.framework.extensions.formatAsCurrency
+import com.bandonleon.cryptofolio.framework.extensions.formatAsPercentageChange
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.linearLayout
@@ -75,11 +76,11 @@ class PortfolioSummaryView(context: Context) : LinearLayout(context) {
     }
 
     fun setPortfolioSummary(totalValue: Float, initialValue: Float) {
-        portfolioValue.text = NumberUtils.formatAsCurrency(totalValue)
-        initialInvestment.text = NumberUtils.formatAsCurrency(initialValue)
-        val percentageChange = (totalValue - initialValue) / initialValue
+        portfolioValue.text = totalValue.formatAsCurrency()
+        initialInvestment.text = initialValue.formatAsCurrency()
+        val percentageChange = (totalValue - initialValue) / initialValue * 100f
         with (investmentChange) {
-            text = NumberUtils.formatAsPercentageChange(percentageChange)
+            text = percentageChange.formatAsPercentageChange()
             when {
                 percentageChange < 0f -> textColor = Color.RED
                 percentageChange > 0f -> textColor = Color.GREEN

@@ -47,9 +47,15 @@ class MainActivity : AppCompatActivity() {
                 assetDao.insert(Asset("ethereum", 22.5f))
             }
         }
+
+        bottomNavigation.selectedItemId = R.id.navigation_home
     }
 
     private fun displayFragment(fragment: Fragment) {
-
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, fragment)
+        // Calling addToBackStack() below will allow the use of back button
+        // transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

@@ -14,9 +14,7 @@ interface CoinStatDao {
     @Query("SELECT * FROM CoinStat")
     fun getAll(): List<CoinStat>
 
-    // Once this issue is fixed: https://youtrack.jetbrains.com/issue/KT-17959
-    // change :arg0 to :coinName
-    @Query("SELECT * FROM CoinStat WHERE id = :arg0")
+    @Query("SELECT * FROM CoinStat WHERE id = :coinName")
     fun getCoin(coinName: String): CoinStat?
 
     @Insert(onConflict = REPLACE)

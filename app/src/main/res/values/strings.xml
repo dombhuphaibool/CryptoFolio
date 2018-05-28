@@ -6,4 +6,14 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="content_description_coin_icon">Coin Icon</string>
+
+    <string name="transaction_label_total_asset">Total Asset: </string>
+    <string name="transaction_label_amount_invested">Amount Invested: </string>
+    <string name="transaction_label_current_value">Current Value: </string>
+    <string name="transaction_label_from">From: </string>
+    <string name="transaction_label_to">To: </string>
+    
+    
 </resources>

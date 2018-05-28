@@ -1,40 +1,27 @@
 package com.bandonleon.cryptofolio.feature.portfolio.view
 
-import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.bandonleon.cryptofolio.R
 import com.bandonleon.cryptofolio.feature.portfolio.PortfolioContract
 import com.bandonleon.cryptofolio.feature.portfolio.PortfolioContract.PorfolioView.LoadListener
 import com.bandonleon.cryptofolio.feature.portfolio.model.AssetRepository
 import com.bandonleon.cryptofolio.feature.portfolio.model.CoinStatRepository
 import com.bandonleon.cryptofolio.feature.portfolio.presenter.PortfolioPresenter
-import com.bandonleon.cryptofolio.framework.mvp.MvpFragment
-import com.bandonleon.mvp.LoadState
+import com.bandonleon.cryptofolio.framework.recycler.RecyclerFragment
 import com.bandonleon.mvp.Presenter
 
 /**
  * Created by dombhuphaibool on 2/27/18.
  */
-class PortfolioFragment : MvpFragment(), PortfolioContract.PorfolioView {
+class PortfolioFragment : RecyclerFragment<PortfolioAdapter>(), PortfolioContract.PorfolioView {
 
-    private var swipeRefreshLayout: SwipeRefreshLayout? = null
-    private var recyclerView: RecyclerView? = null
-    private var adapter: PortfolioAdapter? = null
+    override fun getLayoutProvider(): LayoutProvider {
+        return LayoutProvider(R.layout.fragment_porfolio, R.id.swipe_refresh, R.id.recycler_view)
+    }
 
-    private var _loadState: LoadState = LoadState.LOADED
-    override var loadState: LoadState
-        get() = _loadState
-        set(value) {
-            _loadState = value
-            swipeRefreshLayout?.isRefreshing = (_loadState == LoadState.LOADING)
-        }
-
-    private var loadListener: LoadListener? = null
+    override fun createAdapter(): PortfolioAdapter {
+        return PortfolioAdapter()
+    }
 
     override fun createPresenter(): Presenter {
         val coinStatRepository = CoinStatRepository(context!!)
@@ -43,24 +30,15 @@ class PortfolioFragment : MvpFragment(), PortfolioContract.PorfolioView {
     }
 
     override fun setLoadListener(listener: LoadListener) {
-        loadListener = listener
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_porfolio, container, false)
-        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh)
-        swipeRefreshLayout?.setOnRefreshListener {
-            loadListener?.onLoad()
-        }
-        recyclerView = rootView.findViewById(R.id.recycler_view)
-        recyclerView?.layoutManager = LinearLayoutManager(context!!)
-        adapter = PortfolioAdapter()
-        recyclerView?.adapter = adapter
-        return rootView
+        setOnRefreshListener(object: SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                listener.onLoad()
+            }
+        })
     }
 
     override fun onDestroyView() {
-        loadListener = null
+        setOnRefreshListener(null)
         super.onDestroyView()
     }
 
