@@ -5,5 +5,8 @@
 
     <dimen name="text_label_end_padding">4dp</dimen>
 
-    <dimen name="PORFOLIO_ITEM_VPADDING">10dp</dimen>
+    <dimen name="portfolio_item_vpadding">10dp</dimen>
+    <dimen name="portfolio_icon_size">18dp</dimen>
+
+    <dimen name="recycler_item_vspacing">4dp</dimen>
 </resources>

@@ -12,24 +12,11 @@
     tools:context="com.bandonleon.cryptofolio.MainActivity">
 
     <fragment
-        android:id="@+id/screen"
+        android:id="@+id/navHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.bandonleon.cryptofolio.feature.porfolio.view.PorfolioFragment"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.bandonleon.cryptofolio.feature.porfolio.view.PorfolioFragment"/>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"/>
 
 </android.support.constraint.ConstraintLayout>

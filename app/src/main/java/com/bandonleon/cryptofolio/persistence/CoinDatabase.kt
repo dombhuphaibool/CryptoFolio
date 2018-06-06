@@ -1,10 +1,12 @@
 package com.bandonleon.cryptofolio.persistence
 
+import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.migration.Migration
 import android.content.Context
-import com.bandonleon.cryptofolio.feature.porfolio.model.*
+import com.bandonleon.cryptofolio.feature.portfolio.model.*
 
 /**
  * Created by dombhuphaibool on 2/25/18.
@@ -12,7 +14,7 @@ import com.bandonleon.cryptofolio.feature.porfolio.model.*
 @Database(entities = arrayOf(
         Asset::class,
         Transaction::class,
-        CoinStat::class), version = 1)
+        CoinStat::class), version = 2)
 abstract class CoinDatabase : RoomDatabase() {
 
     abstract fun assetDao(): AssetDao
@@ -28,6 +30,7 @@ abstract class CoinDatabase : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             CoinDatabase::class.java, "coin.db")
                             // .allowMainThreadQueries() // TODO: Remove this!!!
+                            .addMigrations(MIGRATION_1_2)
                             .build()
                 }
             }
@@ -36,6 +39,13 @@ abstract class CoinDatabase : RoomDatabase() {
 
         fun destroyInstance() {
             INSTANCE = null
+        }
+
+        private val MIGRATION_1_2 = object: Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("DROP TABLE `Transaction`")
+                database.execSQL("CREATE TABLE `Transaction` (`date` TEXT NOT NULL, `transaction_type` INTEGER NOT NULL, `exchange_from_id` INTEGER NOT NULL, `exchange_to_id` INTEGER NOT NULL, `coin_id` TEXT NOT NULL, `coin_quantity` REAL NOT NULL, `transaction_amount` REAL NOT NULL, `currency_id` TEXT NOT NULL, PRIMARY KEY(`date`))")
+            }
         }
     }
 }

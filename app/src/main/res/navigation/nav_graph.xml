@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@id/portfolioFragment">
+
+    <fragment
+        android:id="@+id/portfolioFragment"
+        android:name="com.bandonleon.cryptofolio.feature.portfolio.view.PortfolioFragment"
+        android:label="PortfolioFragment"
+        tools:layout="@layout/fragment_porfolio">
+        <action
+            android:id="@+id/viewTransactions"
+            app:destination="@id/transactionFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.bandonleon.cryptofolio.feature.transaction.view.TransactionFragment"
+        android:label="TransactionFragment"
+        tools:layout="@layout/fragment_transaction"/>
+</navigation>
