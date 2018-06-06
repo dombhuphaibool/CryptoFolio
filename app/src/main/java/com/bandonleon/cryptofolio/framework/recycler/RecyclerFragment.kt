@@ -71,11 +71,7 @@ abstract class RecyclerFragment<A : RecyclerView.Adapter<*>> : MvpFragment(){
     /**
      * This method sets an [OnRefreshListener] to respond to the swipe to refresh gesture
      */
-    fun setOnRefreshListener(listener: OnRefreshListener?) {
-        swipeRefreshLayout.setOnRefreshListener {
-            listener?.onRefresh()
-        }
-    }
+    fun setOnRefreshListener(listener: OnRefreshListener?) = swipeRefreshLayout.setOnRefreshListener(listener)
 
     /**
      * A convenience class used to provide xml resource IDs

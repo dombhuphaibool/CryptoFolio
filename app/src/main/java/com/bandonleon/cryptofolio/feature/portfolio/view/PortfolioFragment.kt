@@ -29,17 +29,18 @@ class PortfolioFragment : RecyclerFragment<PortfolioAdapter>(), PortfolioContrac
         return PortfolioPresenter(coinStatRepository, assetRepository)
     }
 
-    override fun setLoadListener(listener: LoadListener) {
-        setOnRefreshListener(object: SwipeRefreshLayout.OnRefreshListener {
-            override fun onRefresh() {
-                listener.onLoad()
-            }
-        })
-    }
-
-    override fun onDestroyView() {
-        setOnRefreshListener(null)
-        super.onDestroyView()
+    override fun setLoadListener(listener: LoadListener?) {
+        setOnRefreshListener(
+                if (listener != null) {
+                    object: SwipeRefreshLayout.OnRefreshListener {
+                        override fun onRefresh() {
+                            listener.onLoad()
+                        }
+                    }
+                } else {
+                    null
+                }
+        )
     }
 
     override fun updateView(coinAssets: List<CoinAsset>) {

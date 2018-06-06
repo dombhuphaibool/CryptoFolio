@@ -23,4 +23,18 @@ class Transaction(
     companion object {
         const val SAMPLE_TRANSACTION_JSON = """{ "date" : "2018-04-23T18:25:43.511Z", "exchange_from_id" : "0", "exchange_to_id" : "1", "coin_id" : "btc", "coin_quantity" : "0.8", "transaction_amount" : "500.00", "currency_id" : "usd" }"""
     }
+
+    enum class Type {
+        PURCHASE,
+        SENT,
+        RECEIVED
+    }
+
+    enum class Exchange {
+        WALLET,
+        COINBASE,
+        BINANCE,
+        BITFINEX,
+        BANK_WELLS_FARGO
+    }
 }

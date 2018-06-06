@@ -12,7 +12,7 @@ interface TransactionContract {
 
         fun updateView(transactions: List<Transaction>)
 
-        fun setLoadListener(listener: LoadListener)
+        fun setLoadListener(listener: LoadListener?)
 
         interface LoadListener {
             fun onLoad()

@@ -12,7 +12,7 @@ interface PortfolioContract {
 
         fun updateView(coinAssets: List<CoinAsset>)
 
-        fun setLoadListener(listener: LoadListener)
+        fun setLoadListener(listener: LoadListener?)
 
         interface LoadListener {
             fun onLoad()

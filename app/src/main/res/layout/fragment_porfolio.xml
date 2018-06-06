@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <!-- android.support.design.widget.AppBarLayout
         android:layout_height="192dp"
         android:layout_width="match_parent">
         <android.support.design.widget.CollapsingToolbarLayout
@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 app:layout_collapseMode="pin"/>
         </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout -->
 
     <include layout="@layout/swipe_recycler_layout"/>
 

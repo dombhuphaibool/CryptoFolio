@@ -3,6 +3,8 @@ package com.bandonleon.cryptofolio.feature.transaction.view
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import com.bandonleon.cryptofolio.R
 import kotlinx.android.synthetic.main.view_transaction_item.view.*
 
@@ -16,6 +18,7 @@ class TransactionItemView @JvmOverloads constructor(context: Context, attrs: Att
         inflate(context, R.layout.view_transaction_item, this)
         // labelFrom.text = resources.getString(R.string.transaction_label_from)
         // labelTo.text = resources.getString(R.string.transaction_label_to)
+        layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
     }
 
     fun setTransactionType(type: String) {

@@ -31,6 +31,11 @@ class PortfolioPresenter(private val coinStatRepository: CoinStatRepository,
         getAssets()
     }
 
+    override fun onUnbind() {
+        view.setLoadListener(null)
+        super.onUnbind()
+    }
+
     override fun onLoad() {
         if (!assets.isEmpty()) {
             val coinList = assets.map { (id, asset) -> asset.id }

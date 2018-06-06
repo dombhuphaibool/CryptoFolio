@@ -10,6 +10,8 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bandonleon.cryptofolio.R
 import com.bandonleon.cryptofolio.framework.extensions.formatAsAssetQuantity
 import com.bandonleon.cryptofolio.framework.extensions.formatAsCurrency
@@ -38,6 +40,10 @@ class PortfolioItemView @JvmOverloads constructor(context: Context, attrs: Attri
         assetQuantity = findViewById(R.id.assetQuantity)
         assetValue = findViewById(R.id.assetValue)
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+        setOnClickListener { view ->
+            view.findNavController().navigate(R.id.viewTransactions)
+        }
     }
 
     fun setCoinName(name: String, symbol: String) {

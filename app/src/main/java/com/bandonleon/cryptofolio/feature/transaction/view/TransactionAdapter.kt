@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.bandonleon.cryptofolio.feature.portfolio.model.Transaction
+import com.bandonleon.cryptofolio.feature.portfolio.model.Transaction.Type.PURCHASE
 
 /**
  * TODO: Add description here...
@@ -21,6 +22,9 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVi
     }
 
     private var transactions: MutableList<Transaction> = ArrayList()
+    private var totalAsset: Float = 0f
+    private var amountInvested: Float = 0f
+    private var currentValue: Float = 0f
 
     override fun getItemCount(): Int {
         return transactions.size + 1
@@ -41,12 +45,41 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVi
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         when (holder.itemViewType) {
             TRANSACTION_SUMMARY -> {
-
+                val summaryView = holder.itemView as TransactionSummaryView
+                with (summaryView) {
+                    setTotalAsset(totalAsset)
+                    setAmountInvested(amountInvested)
+                    setCurrentValue(currentValue)
+                }
             }
 
             TRANSACTION_ITEM -> {
-
+                val transactionView = holder.itemView as TransactionItemView
+                val transaction = transactions[position - 1]
+                with (transactionView) {
+                    setTransactionType(transaction.transactionType.toString())
+                    setTransactionDate(transaction.date)
+                    setTransactionFrom("From: ", transaction.exchangeFromId.toString())
+                    setTransactionTo("To: ", transaction.exchangeToId.toString())
+                    setTransactionQuantity(transaction.coinQuantity)
+                    setTransactionPrice(transaction.amount, transaction.currencyId)
+                }
             }
         }
+    }
+
+    // TODO: Use https://developer.android.com/reference/android/support/v7/recyclerview/extensions/AsyncListDiffer.html
+    fun updateTransactions(newTransactions: List<Transaction>) {
+        transactions.clear()
+        transactions.addAll(newTransactions)
+
+        for (transaction in transactions) {
+            if (transaction.transactionType == PURCHASE.ordinal) {
+                totalAsset += transaction.coinQuantity
+                amountInvested += transaction.amount
+                currentValue += (transaction.coinQuantity * 10000f)
+            }
+        }
+        notifyDataSetChanged()
     }
 }
